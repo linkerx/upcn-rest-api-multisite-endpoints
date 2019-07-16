@@ -63,6 +63,14 @@ function lnk_get_sites(WP_REST_Request $request) {
     switch_to_blog($site->blog_id);
     $info = get_bloginfo('name');
     $sites[$key]->blog_name = $info;
+    $site[$key]->blog_description = get_bloginfo('description');
+    $site[$key]->wpurl = get_bloginfo('wpurl');
+     // info delegacion
+  $site[$key]->info_direccion = get_option('delegacion_info_direccion','Calle XXX, Localidad, Río Negro');
+  $site[$key]->info_telefono = get_option('delegacion_info_telefono','+54 XXX - XXX XXXX');
+  $site[$key]->info_email = get_option('delegacion_info_email','email_delegacion@upcn-rionegro.com.ar');
+  $site[$key]->info_imagen = get_option('delegacion_info_imagen','http://back.upcn-rionegro.com.ar/wp-content/uploads/2003/04/logo_upcn.jpg');
+
     restore_current_blog();
   }
   return new WP_REST_Response($sites, 200 );
