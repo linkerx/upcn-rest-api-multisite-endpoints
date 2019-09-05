@@ -44,6 +44,12 @@ function lnk_sites_register_route(){
     'methods' => WP_REST_Server::READABLE,
     'callback' => 'lnk_get_sites_posts',
   ));
+
+  // Endpoint: Posts Destacados de Todos Los Sitios
+  register_rest_route( $route, '/sites-featured-posts', array(
+    'methods' => WP_REST_Server::READABLE,
+    'callback' => 'lnk_get_sites_featured_posts',
+  ));
 }
 add_action( 'rest_api_init', 'lnk_sites_register_route');
 
@@ -170,7 +176,7 @@ function lnk_get_site_posts(WP_REST_Request $request){
      switch_to_blog($site->blog_id);
 
      $posts_args = array(
-      'numberposts' => '-1',
+      'numberposts' => $count,
       'meta_query' => array(
         'relation' => 'OR',
         array(
@@ -227,7 +233,6 @@ function lnk_get_sites_featured_posts(WP_REST_Request $request){
     $posts_args = array(
      'numberposts' => '-1',
      'meta_query' => array(
-       'relation' => 'OR',
        array(
         'key' => 'lnk_featured',
         'compare' => '=',
@@ -251,6 +256,7 @@ function lnk_get_sites_featured_posts(WP_REST_Request $request){
       }
 
       $posts[$post_key]->thumbnail = get_the_post_thumbnail_url($post->ID);
+      $posts[$post_key]->lnk_featured_mode = get_post_meta($post->ID,'lnk_featured_mode',true);
     }
 
     $allPosts = array_merge($allPosts,$posts);
