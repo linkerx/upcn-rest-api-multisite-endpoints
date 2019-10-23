@@ -287,7 +287,7 @@ function lnk_get_sites_featured_posts(WP_REST_Request $request){
 function lnk_compare_by_name($site1,$site2){
   if($site1->blog_name == $site2->blog_name) {
     return 0;
-  } else if ($site1->blog_name > $site2->blog_name) {
+  } else if ($site1->blog_name < $site2->blog_name) {
     return -1;
   } else {
     return 1;
