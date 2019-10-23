@@ -79,8 +79,7 @@ function lnk_get_sites(WP_REST_Request $request) {
     restore_current_blog();
   }
   
-  $f = create_function('$a,$b','return strcasecmp($a->blog_name,$b->blog_name);');
-  return new WP_REST_Response(uasort($sites, $f), 200 );
+  return new WP_REST_Response(usort($sites,'lnk_compare_by_name'), 200);
 }
 
 /**
@@ -281,3 +280,16 @@ function lnk_get_sites_featured_posts(WP_REST_Request $request){
      return 1;
    }
  }
+
+ /**
+  * Compara sitios por nombre para ordenar alfabetico
+  */
+function lnk_compare_by_name($site1,$site2){
+  if($site1->blog_name == $site2->blog_name) {
+    return 0;
+  } else if ($site1->blog_name > $site2->blog_name) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
