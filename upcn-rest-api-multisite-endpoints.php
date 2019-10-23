@@ -79,7 +79,8 @@ function lnk_get_sites(WP_REST_Request $request) {
     restore_current_blog();
   }
   
-  return new WP_REST_Response(usort($sites,'lnk_compare_by_name'), 200);
+  usort($sites,'lnk_compare_by_name');
+  return new WP_REST_Response($sites, 200);
 }
 
 /**
