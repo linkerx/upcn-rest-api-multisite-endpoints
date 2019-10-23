@@ -78,6 +78,10 @@ function lnk_get_sites(WP_REST_Request $request) {
 
     restore_current_blog();
   }
+  
+  $f = create_function('$a,$b','return strcasecmp($a->blogname,$b->blogname);');
+  uasort($sites, $f);
+
   return new WP_REST_Response($sites, 200 );
 }
 
