@@ -267,7 +267,6 @@ function lnk_get_sites_featured_posts(WP_REST_Request $request){
   return new WP_REST_Response($allPosts, 200 );
 }
 
-
  /**
   * Compara 2 objetos WP_Post para ordenar decrecientemente
   */
