@@ -76,6 +76,11 @@ function lnk_get_sites(WP_REST_Request $request) {
   $sites[$key]->info_email = get_option('delegacion_info_email','email_delegacion@upcn-rionegro.com.ar');
   $sites[$key]->info_imagen = get_option('delegacion_info_imagen','http://back.upcn-rionegro.com.ar/wp-content/uploads/2003/04/logo_upcn.jpg');
 
+  $sites[$key]->redes_facebook_page_url = get_option('delegacion_redes_facebook_page_url','https://facebook.com/XXX');
+  $sites[$key]->pos_latitud = get_option('delegacion_pos_latitud','-40.8');
+  $sites[$key]->pos_longitud = get_option('delegacion_pos_longitud','-63');
+
+
     restore_current_blog();
   }
   
